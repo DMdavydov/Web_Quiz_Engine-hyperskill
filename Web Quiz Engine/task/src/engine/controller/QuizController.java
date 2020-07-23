@@ -1,6 +1,7 @@
 package engine.controller;
 
 import engine.controller.dto.AnswerDto;
+import engine.controller.dto.AnswerResponse;
 import engine.domain.Quiz;
 import engine.service.QuizService;
 import org.springframework.http.MediaType;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,23 +25,18 @@ public class QuizController {
         this.quizService = quizService;
     }
 
-    @PostMapping(value = "/api/quizzes/{id}/solve",
-            consumes = {
-                    MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-                    MediaType.APPLICATION_JSON_VALUE
-            }
-    )
-    public ResponseEntity<AnswerDto> sendAnswer(@PathVariable int id, @RequestParam int answer) {
+    @PostMapping("/api/quizzes/{id}/solve")
+    public ResponseEntity<AnswerDto> sendAnswer(@PathVariable int id, @RequestBody AnswerResponse answer) {
         return quizService.postAnswer(id, answer);
     }
 
     @PostMapping("/api/quizzes")
-    public Quiz createQuiz(@RequestBody Quiz quiz) {
+    public Quiz createQuiz(@Valid @RequestBody Quiz quiz) {
         return quizService.createQuiz(quiz);
     }
 
     @GetMapping("/api/quizzes/{id}")
-    public ResponseEntity<Quiz> getQuizById(@PathVariable int id) {
+    public Quiz getQuizById(@PathVariable int id) {
         return quizService.getQuizById(id);
     }
 

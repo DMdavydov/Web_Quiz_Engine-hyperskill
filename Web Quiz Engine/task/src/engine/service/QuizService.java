@@ -1,12 +1,15 @@
 package engine.service;
 
 import engine.controller.dto.AnswerDto;
+import engine.controller.dto.AnswerResponse;
 import engine.domain.Quiz;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -16,7 +19,7 @@ public class QuizService {
     private final List<Quiz> quizzes = new ArrayList<>();
     private final AtomicInteger atomicInteger = new AtomicInteger(1);
 
-    public ResponseEntity<AnswerDto> postAnswer(int id, int answer) {
+    public ResponseEntity<AnswerDto> postAnswer(int id, AnswerResponse answer) {
         Quiz quiz = quizzes.stream()
                 .filter(p -> id == p.getId())
                 .findFirst()
@@ -24,7 +27,7 @@ public class QuizService {
         if (quiz == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        if (answer == quiz.getAnswer()) {
+        if (quiz.getAnswer().equals(answer.getAnswer())) {
             return new ResponseEntity<>(new AnswerDto(true, "Correct"), HttpStatus.OK);
         }
         return new ResponseEntity<>(new AnswerDto(false, "Incorrect"), HttpStatus.OK);
@@ -36,12 +39,11 @@ public class QuizService {
         return quiz;
     }
 
-    public ResponseEntity<Quiz> getQuizById(int id) {
+    public Quiz getQuizById(int id) {
         return quizzes.stream()
                 .filter(p -> p.getId() == id)
-                .map(p -> new ResponseEntity<>(p, HttpStatus.OK))
                 .findFirst()
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     public List<Quiz> getQuizzes() {

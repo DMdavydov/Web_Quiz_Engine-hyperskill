@@ -1,21 +1,31 @@
 package engine.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Quiz {
 
     private int id;
+
+    @NotBlank
     private String title;
+    @NotBlank
     private String text;
+    @Size(min = 2)
+    @NotNull
     private String[] options;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private int answer;
+    private List<Integer> answer = new ArrayList<>();
 
     public Quiz() {
     }
 
-    public Quiz(int id, String title, String text, String[] options, int answer) {
+    public Quiz(int id, String title, String text, String[] options, List<Integer> answer) {
         this.id = id;
         this.title = title;
         this.text = text;
@@ -55,11 +65,11 @@ public class Quiz {
         this.options = options;
     }
 
-    public int getAnswer() {
+    public List<Integer> getAnswer() {
         return answer;
     }
 
-    public void setAnswer(int answer) {
+    public void setAnswer(List<Integer> answer) {
         this.answer = answer;
     }
 }
