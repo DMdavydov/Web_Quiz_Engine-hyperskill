@@ -4,13 +4,11 @@ import engine.controller.dto.AnswerDto;
 import engine.controller.dto.AnswerResponse;
 import engine.domain.Quiz;
 import engine.service.QuizService;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -26,8 +24,8 @@ public class QuizController {
     }
 
     @PostMapping("/api/quizzes/{id}/solve")
-    public ResponseEntity<AnswerDto> sendAnswer(@PathVariable int id, @RequestBody AnswerResponse answer) {
-        return quizService.postAnswer(id, answer);
+    public ResponseEntity<AnswerDto> sendAnswer(@PathVariable Long id, @RequestBody AnswerResponse answer) {
+        return quizService.postAnswer(id, answer.getAnswer());
     }
 
     @PostMapping("/api/quizzes")
@@ -36,7 +34,7 @@ public class QuizController {
     }
 
     @GetMapping("/api/quizzes/{id}")
-    public Quiz getQuizById(@PathVariable int id) {
+    public Quiz getQuizById(@PathVariable Long id) {
         return quizService.getQuizById(id);
     }
 

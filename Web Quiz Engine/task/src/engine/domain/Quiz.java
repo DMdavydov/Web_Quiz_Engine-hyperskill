@@ -2,42 +2,46 @@ package engine.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Quiz {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotBlank
     private String title;
     @NotBlank
     private String text;
+
     @Size(min = 2)
     @NotNull
-    private String[] options;
+    @ElementCollection
+    private List<String> options = new ArrayList<>();
+
+    @ElementCollection
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Integer> answer = new ArrayList<>();
 
     public Quiz() {
     }
 
-    public Quiz(int id, String title, String text, String[] options, List<Integer> answer) {
-        this.id = id;
-        this.title = title;
-        this.text = text;
-        this.options = options;
-        this.answer = answer;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -57,11 +61,11 @@ public class Quiz {
         this.text = text;
     }
 
-    public String[] getOptions() {
+    public List<String> getOptions() {
         return options;
     }
 
-    public void setOptions(String[] options) {
+    public void setOptions(List<String> options) {
         this.options = options;
     }
 
