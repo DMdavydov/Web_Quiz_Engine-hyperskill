@@ -1,30 +1,6 @@
 type: edu
 custom_name: stage5
 files:
-- name: build.gradle
-  visible: true
-  text: |
-    plugins {
-        id 'org.springframework.boot' version '2.2.2.RELEASE'
-        id 'java'
-    }
-
-    apply plugin: 'io.spring.dependency-management'
-
-    sourceCompatibility = '11'
-
-    repositories {
-        mavenCentral()
-    }
-
-    sourceSets.main.resources.srcDirs = ["src/resources"]
-
-    dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter'
-        implementation 'org.springframework.boot:spring-boot-starter-actuator'
-        compile("org.springframework.boot:spring-boot-starter-web")
-    }
-  learner_created: false
 - name: src/engine/WebQuizEngine.java
   visible: true
   text: |
@@ -41,13 +17,6 @@ files:
         }
 
     }
-  learner_created: false
-- name: src/resources/application.properties
-  visible: true
-  text: |
-    server.port=8889
-    management.endpoints.web.exposure.include=*
-    management.endpoint.shutdown.enabled=true
   learner_created: false
 - name: test/tests/WebQuizEngineTest.java
   visible: false
@@ -651,6 +620,70 @@ files:
         }
     }
   learner_created: false
+- name: build.gradle
+  visible: true
+  text: |
+    plugins {
+        id 'org.springframework.boot' version '2.2.2.RELEASE'
+        id 'java'
+    }
+
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = '11'
+
+    repositories {
+        mavenCentral()
+    }
+
+    sourceSets.main.resources.srcDirs = ["src/resources"]
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        compile("org.springframework.boot:spring-boot-starter-web")
+    }
+  learner_created: false
+- name: src/resources/application.properties
+  visible: true
+  text: |
+    server.port=8889
+    management.endpoints.web.exposure.include=*
+    management.endpoint.shutdown.enabled=true
+  learner_created: false
+- name: src/engine/controller/dto/UserRequest.java
+  visible: true
+  learner_created: true
+- name: src/engine/config/SecurityConfiguration.java
+  visible: true
+  learner_created: true
+- name: src/engine/controller/SecurityController.java
+  visible: true
+  learner_created: true
+- name: src/engine/repository/UserRepository.java
+  visible: true
+  learner_created: true
+- name: src/engine/domain/User.java
+  visible: true
+  learner_created: true
+- name: src/engine/service/UserService.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/91/stages/508/implement
-status: Unchecked
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #4
+
+    POST /api/register should respond with status code 400, responded: 200
+
+    Response body:
+
+    Please find below the output of your program during this failed test.
+
+    ---
+
+    Hibernate: select user0_.id as id1_3_, user0_.email as email2_3_, user0_.password as password3_3_ from user user0_ where user0_.email=?
+    Hibernate: insert into user (id, email, password) values (null, ?, ?)
+  time: Sat, 25 Jul 2020 12:00:22 UTC
 record: -1
