@@ -1,23 +1,6 @@
 type: edu
 custom_name: stage5
 files:
-- name: src/engine/WebQuizEngine.java
-  visible: true
-  text: |
-    package engine;
-
-    import org.springframework.boot.SpringApplication;
-    import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-    @SpringBootApplication
-    public class WebQuizEngine {
-
-        public static void main(String[] args) {
-            SpringApplication.run(WebQuizEngine.class, args);
-        }
-
-    }
-  learner_created: false
 - name: test/tests/WebQuizEngineTest.java
   visible: false
   text: |
@@ -651,39 +634,45 @@ files:
     management.endpoints.web.exposure.include=*
     management.endpoint.shutdown.enabled=true
   learner_created: false
-- name: src/engine/controller/dto/UserRequest.java
-  visible: true
-  learner_created: true
 - name: src/engine/config/SecurityConfiguration.java
-  visible: true
-  learner_created: true
-- name: src/engine/controller/SecurityController.java
   visible: true
   learner_created: true
 - name: src/engine/repository/UserRepository.java
   visible: true
   learner_created: true
-- name: src/engine/domain/User.java
-  visible: true
-  learner_created: true
 - name: src/engine/service/UserService.java
   visible: true
   learner_created: true
+- name: src/engine/domain/User.java
+  visible: true
+  learner_created: true
+- name: src/engine/controller/dto/UserRequest.java
+  visible: true
+  learner_created: true
+- name: src/engine/controller/SecurityController.java
+  visible: true
+  learner_created: true
+- name: src/engine/WebQuizEngine.java
+  visible: true
+  text: |
+    package engine;
+
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+    @SpringBootApplication
+    public class WebQuizEngine {
+
+        public static void main(String[] args) {
+            SpringApplication.run(WebQuizEngine.class, args);
+        }
+
+    }
+  learner_created: false
 feedback_link: https://hyperskill.org/projects/91/stages/508/implement
-status: Failed
+status: Solved
 feedback:
-  message: |-
-    Wrong answer in test #4
-
-    POST /api/register should respond with status code 400, responded: 200
-
-    Response body:
-
-    Please find below the output of your program during this failed test.
-
-    ---
-
-    Hibernate: select user0_.id as id1_3_, user0_.email as email2_3_, user0_.password as password3_3_ from user user0_ where user0_.email=?
-    Hibernate: insert into user (id, email, password) values (null, ?, ?)
-  time: Sat, 25 Jul 2020 12:00:22 UTC
+  message: Congratulations! Continue on <a href="https://hyperskill.org/projects/91/stages/508/implement">JetBrains
+    Academy</a>
+  time: Sun, 26 Jul 2020 18:28:30 UTC
 record: -1

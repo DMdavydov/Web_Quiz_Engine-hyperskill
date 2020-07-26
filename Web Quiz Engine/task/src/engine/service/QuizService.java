@@ -9,9 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,13 +29,13 @@ public class QuizService {
         return new ResponseEntity<>(AnswerDto.builder().success(false).feedback("Incorrect").build(), HttpStatus.OK);
     }
 
-    public void createQuiz(Quiz quiz, String email) {
-        User author = userRepository.findByEmail(email);
-        if (author == null) {
+    public Quiz createQuiz(Quiz quiz, String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "User not found");
         }
-        quiz.setAuthor(author);
-        quizRepository.save(quiz);
+        quiz.setUser(user);
+        return quizRepository.save(quiz);
     }
 
     public Quiz getQuizById(Long id) {
@@ -42,7 +43,17 @@ public class QuizService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    public void deleteQuizById(Long id, String email) {
+        User author = userRepository.findByEmail(email);
+        Quiz quiz = quizRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (!author.getEmail().equals(quiz.getUser().getEmail())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+        quizRepository.delete(quiz);
+    }
+
     public List<Quiz> getQuizzes() {
-        return new ArrayList<>(quizRepository.findAll());
+        return quizRepository.findAll();
     }
 }

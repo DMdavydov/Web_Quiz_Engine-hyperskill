@@ -1,5 +1,6 @@
 package engine.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,8 +30,9 @@ public class Quiz {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
+    @JsonIgnore
+    @JoinColumn(nullable = false)
+    private User user;
 
     @NotBlank
     private String title;
