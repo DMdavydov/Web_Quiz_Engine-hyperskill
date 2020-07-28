@@ -11,6 +11,15 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Problems/Creating a closure" />
+            <option value="$PROJECT_DIR$/Problems/Getting distinct strings" />
+            <option value="$PROJECT_DIR$/Problems/IntBinaryOperation" />
+            <option value="$PROJECT_DIR$/Problems/Max of two integers" />
+            <option value="$PROJECT_DIR$/Problems/Output names of the methods" />
+            <option value="$PROJECT_DIR$/Problems/Returning from a method" />
+            <option value="$PROJECT_DIR$/Problems/Returning values from an anonymous class" />
+            <option value="$PROJECT_DIR$/Problems/Shape hierarchy" />
+            <option value="$PROJECT_DIR$/Problems/Users and WebSites" />
             <option value="$PROJECT_DIR$/Web Quiz Engine/task" />
           </set>
         </option>
